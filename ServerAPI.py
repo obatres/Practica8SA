@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 class MongoAPI:
     def __init__(self, data):
-        self.client = MongoClient("mongodb://admin:admin@clusterservera-shard-00-00.zcacd.gcp.mongodb.net:27017,clusterservera-shard-00-01.zcacd.gcp.mongodb.net:27017,clusterservera-shard-00-02.zcacd.gcp.mongodb.net:27017/<dbname>?ssl=true&replica$$tlas-hjvcfy-shard-0&authSource=admin&retryWrites=true&w=majority")  
+        self.client = MongoClient("mongodb://admin:admin@clusterservera-shard-00-00.zcacd.gcp.mongodb.net:27017,clusterservera-shard-00-01.zcacd.gcp.mongodb.net:27017,clusterservera-shard-00-02.zcacd.gcp.mongodb.net:27017/<dbname>?ssl=true&replica$$tlas-hjvcfy-shard-0&authSource=admin&retryWrites=true&w=majority")
         database = data['database']
         collection = data['collection']
         cursor = self.client[database]
@@ -15,7 +15,8 @@ class MongoAPI:
 
     def read(self):
         documents = self.collection.find()
-        output = [{item: data[item] for item in data if item !='_id'}for data in documents]
+        output = [{item: data[item] for item in data if item != '_id'}
+                  for data in documents]
         return output
 
     def write(self, data):
@@ -23,26 +24,30 @@ class MongoAPI:
         response = self.collection.insert_one(new_document)
         output = {'Status': 'Successfully Inserted',
                   'Document_ID': str(response.inserted_id)}
-        return output      
+        return output
+
     def update(self):
         filt = self.data['Filter']
         updated_data = {"$set": self.data['DataToBeUpdated']}
         response = self.collection.update_one(filt, updated_data)
-        output = {'Status': 'Successfully Updated' if response.modified_count > 0 else "Nothing was updated."}
+        output = {'Status': 'Successfully Updated' if response.modified_count >
+                  0 else "Nothing was updated."}
         return output
-
 
     def delete(self, data):
         filt = self.data['Filter']
         response = self.collection.delete_one(filt)
-        output = {'Status': 'Successfully Deleted' if response.deleted_count > 0 else "Document not found."}
+        output = {'Status': 'Successfully Deleted' if response.deleted_count >
+                  0 else "Document not found."}
         return output
+
 
 @app.route('/')
 def base():
     return Response(response=json.dumps({"Status": "UP"}),
                     status=200,
                     mimetype='application/json')
+
 
 @app.route('/mongodb', methods=['GET'])
 def mongo_read():
@@ -57,6 +62,7 @@ def mongo_read():
                     status=200,
                     mimetype='application/json')
 
+
 @app.route('/mongodb', methods=['POST'])
 def mongo_write():
     data = request.json
@@ -70,6 +76,7 @@ def mongo_write():
                     status=200,
                     mimetype='application/json')
 
+
 @app.route('/mongodb', methods=['PUT'])
 def mongo_update():
     data = request.json
@@ -82,6 +89,7 @@ def mongo_update():
     return Response(response=json.dumps(response),
                     status=200,
                     mimetype='application/json')
+
 
 @app.route('/mongodb', methods=['DELETE'])
 def mongo_delete():
@@ -103,5 +111,6 @@ def mongo_delete():
                     status=200,
                     mimetype='application/json')
 
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5001, host='0.0.0.0')                   
+    app.run(debug=True, port=5001, host='0.0.0.0')
