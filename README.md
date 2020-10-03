@@ -7,10 +7,13 @@
 ## Servidor WEB
 ### Contenedor AplicacionServerA
 > Este contenedor es el encargado de ejecutrar el Servdior Web, se ubica en el puerto 5001
-Rutas:
-  http://35.223.106.4:5001/mongodb
+
+>Rutas:
+ 
+  *http://35.223.106.4:5001/mongodb
   
-Metodos:
+>Metodos:
+ 
   *PUT
   *POST
   *DELETE
@@ -20,10 +23,10 @@ Metodos:
 ### Contenedor MongoTest
 > Este contenedor es el encargado de proporcionar el almacenamiento de la informacion en una base de datos de mongo db, se ubica en el puerto 5000
 
-Rutas:
-  http://35.223.106.4:5000
+>Rutas:
+  *http://35.223.106.4:5000
   
-Data:
+>Data:
   *base de datos: ServerA
   *coleccion: Datos
 
