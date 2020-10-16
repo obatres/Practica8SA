@@ -1,12 +1,15 @@
-
 version: "3"
 services:
-    mymongo_1:
+    mongosrv:
         image: "mongo"
-
-    myreader:
+        ports:
+           - "5000:27017"
+    serverapi:
         build: .
         depends_on:
-            - mongoTest
+            - mongosrv
         ports:
             - "5001:5001"
+        volumes:
+            - /proc/:/modulos/proc/
+
