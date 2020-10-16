@@ -10,7 +10,7 @@
 
 >Rutas:
  
-  *http://35.223.106.4:5001/mongodb
+  *http://35.229.79.84:5001/mongodb
   
 >Metodos:
  
@@ -24,7 +24,7 @@
 > Este contenedor es el encargado de proporcionar el almacenamiento de la informacion en una base de datos de mongo db, se ubica en el puerto 5000
 
 >Rutas:
-  *http://35.223.106.4:5000
+  *http://35.229.79.84:5000
   
 >Data:
   *base de datos: ServerA
@@ -32,9 +32,11 @@
 
 
 ## Video de demostracion del funcionamiento
-> https://youtu.be/2ICL1LehcCo
+>https://youtu.be/zS4LI_tA9nM
 
 
 ## Historial de versiones
 * 0.1
-  * CAMBIO: Creacion de contenedores, de servidor y base de datos. 
+  * CAMBIO: Creacion de contenedores, de servidor y base de datos.
+* 0.2
+  * CAMBIO: Creacion de volumen en el servidor API REST, cambio de ip del servidor
